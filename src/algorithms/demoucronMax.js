@@ -1,68 +1,75 @@
 import { copyMatrix, transposeMatrix } from "./utils"
 import { findMaximum } from "."
 
-async function demoucronMax(matrice1) {
-    //pour enregistrer chaque demarche de demoucron
-    let demarche = []
+async function findLongestPath(matrixInput) {
+    let steps = []
 
-    let matrice = await copyMatrix(matrice1)
-    let matriceInitialeTransposed = transposeMatrix(matrice1)
-    const tailleMatrice = matrice.length
-    let w = []
-    let entree = []
-    let sortie = []
-    let lastMatrice = []
-    let currentMatrice = []
-    let a_changee = []
+    let matrix = await copyMatrix(matrixInput)
+    let initialMatrixTransposed = transposeMatrix(matrixInput)
+    const matrixSize = matrix.length
+    // let pathsWeights = [];
+    let incomingNodes = []
+    // let outgoingNodes = [];
+    let previousMatrix = []
+    let updatedMatrix = []
+    // let changedCells = [];
 
-    for (var k = 1; k < tailleMatrice - 1; k++) {
-        entree = []
-        sortie = []
-        w = []
-        //pour enregistrer les cellules qui ont ete changee - utilisation css
-        a_changee = []
-        lastMatrice = await copyMatrix(matrice)
-        //detection des entrees et sortie
-        for (var i = 0; i < tailleMatrice; i++) {
-            if (matrice[i][k] !== Number.NEGATIVE_INFINITY) {
-                entree.push(i)
+    for (let node = 1; node < matrixSize - 1; node++) {
+        let pathsWeights = []
+        let outgoingNodes = []
+        let changedCells = []
+        incomingNodes = []
+        outgoingNodes = []
+        pathsWeights = []
+        changedCells = []
+        previousMatrix = await copyMatrix(matrix)
+
+        for (let i = 0; i < matrixSize; i++) {
+            if (matrix[i][node] !== Number.NEGATIVE_INFINITY) {
+                incomingNodes.push(i)
             }
-            if (i == k) {
-                for (var j = 0; j < tailleMatrice; j++) {
-                    if (matrice[i][j] !== Number.NEGATIVE_INFINITY) {
-                        sortie.push(j)
+            if (i === node) {
+                for (let j = 0; j < matrixSize; j++) {
+                    if (matrix[i][j] !== Number.NEGATIVE_INFINITY) {
+                        outgoingNodes.push(j)
                     }
                 }
             }
         }
-        entree.map((i) => {
-            w[i] = []
-            sortie.map((j) => {
-                w[i][j] = matrice[i][k] + matrice[k][j]
-                matrice[i][j] = w[i][j] >= matrice[i][j] ? w[i][j] : matrice[i][j]
-                a_changee.push([i, j])
+
+        incomingNodes.forEach((i) => {
+            pathsWeights[i] = []
+            outgoingNodes.forEach((j) => {
+                let newPathWeight = matrix[i][node] + matrix[node][j]
+                matrix[i][j] = Math.max(newPathWeight, matrix[i][j])
+                if (matrix[i][j] === newPathWeight) {
+                    changedCells.push([i, j])
+                }
             })
         })
-        currentMatrice = await copyMatrix(matrice)
-        demarche.push({
-            k: k,
-            lastMatrice: lastMatrice,
-            currentMatrice: currentMatrice,
-            a_changee: a_changee,
-            entree: entree,
-            sortie: sortie,
-            w: w,
+
+        updatedMatrix = await copyMatrix(matrix)
+        steps.push({
+            node,
+            previousMatrix,
+            updatedMatrix,
+            changedCells,
+            incomingNodes,
+            outgoingNodes,
+            pathsWeights,
         })
     }
-    let cheminMax = undefined
-    if (Number.isFinite(matrice[0][tailleMatrice - 1])) {
-        let matriceMaxTransposed = transposeMatrix(matrice)
-        cheminMax = findMaximum(matriceInitialeTransposed, matriceMaxTransposed)
+
+    let longestPath = undefined
+    if (Number.isFinite(matrix[0][matrixSize - 1])) {
+        let finalMatrixTransposed = transposeMatrix(matrix)
+        longestPath = findMaximum(initialMatrixTransposed, finalMatrixTransposed)
     }
+
     return {
-        demarche: demarche,
-        cheminMax: cheminMax,
+        steps,
+        longestPath,
     }
 }
 
-export default demoucronMax
+export default findLongestPath

@@ -36,7 +36,9 @@ function DemoncronBox() {
                     return val + 1
                 })
                 grapheRef.current.props.colorChemin(cheminReel)
-            }component
+            }
+        }
+    }
     let creerSommet = () => {
         grapheRef.current.props.creationNodes(nombreSommet)
     }

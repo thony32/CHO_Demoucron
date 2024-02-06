@@ -11,13 +11,13 @@ function findMinimum(matriceInitialeTransposed, matriceMinTransposed) {
    while (!trouve && compteur >= 0) {
        trouveRow = false
        cheminMin.push(index)
-       if (matriceInitialeTransposed[index][0] == matriceMinTransposed[index][0]) {
+       if (matriceInitialeTransposed[index][0] === matriceMinTransposed[index][0]) {
            cheminMin.push(0)
            trouve = true
        }
        for (var i = 0; i < tailleMatrice && !trouveRow; i++) {
-           if (matriceInitialeTransposed[index][i] != Infinity) {
-               if (matriceMinTransposed[index][0] == matriceInitialeTransposed[index][i] + matriceMinTransposed[i][0]) {
+           if (matriceInitialeTransposed[index][i] !== Infinity) {
+               if (matriceMinTransposed[index][0] === matriceInitialeTransposed[index][i] + matriceMinTransposed[i][0]) {
                    index = i
                    trouveRow = true
                }
