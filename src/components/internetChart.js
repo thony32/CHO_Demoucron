@@ -5,7 +5,7 @@ import CytoscapeDomNode from "cytoscape-dom-node"
 import edgehandles from "cytoscape-edgehandles"
 import contextMenus from "cytoscape-context-menus"
 import "cytoscape-context-menus/cytoscape-context-menus.css"
-import { creationMatrice } from "../util/fonctionMatriciel"
+import { creationMatrice } from "../utils/fonctionMatriciel"
 
 cytoscape.use(CytoscapeDomNode)
 cytoscape.use(edgehandles)

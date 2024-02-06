@@ -1,5 +1,5 @@
 // import './App.css';
-import DemoncronBox from "./component/demoucronBox"
+import DemoncronBox from "./components/demoucronBox"
 import "../node_modules/bootstrap/dist/css/bootstrap.css"
 
 function App() {

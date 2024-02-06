@@ -1,4 +1,4 @@
-import { copyMatrice, transposeMat } from "../util/fonctionMatriciel"
+import { copyMatrice, transposeMat } from "../utils/fonctionMatriciel"
 
 async function algoDemoncronMin(matrice1) {
     let demarche = []
