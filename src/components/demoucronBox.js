@@ -44,25 +44,15 @@ function DemoncronBox() {
     }
     return (
         <>
-            <Navbar
-                bg="primary"
-                variant="dark"
-                style={{
-                    border: "2px solid red",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
-                <Navbar.Brand href="#home">RO - DEMOUCRON</Navbar.Brand>
-                <Nav className="mr-auto"></Nav>
-            </Navbar>
+            <div className="w-full px-6 py-2 bg-gray-200 uppercase text-center font-bold text-4xl">RO - Demoucron</div>
             <Container>
                 <h3>Editer Graphe</h3>
                 <div className="nombreSommetContainer">
                     <label>Nombre Sommet :</label>
                     <input type="number" value={nombreSommet} onChange={(e) => setNombreSommet(e.target.value)} min="2"></input>
-                    <button onClick={creerSommet}>Creer</button>
+                    <button className="btn btn-secondary" onClick={creerSommet}>
+                        Add
+                    </button>
                 </div>
                 <GraphInternet ref={grapheRef}></GraphInternet>
                 <Form>
@@ -70,7 +60,9 @@ function DemoncronBox() {
 
                     <Form.Check checked={typeChemin == "max"} label="Maximum" type="radio" value="max" id="max" onChange={(e) => setTypeChemin(e.target.value)} />
                 </Form>
-                <Button onClick={trouveSolution}>Trouve solution</Button>
+                <button className="btn btn-info" onClick={trouveSolution}>
+                    Trouve solution
+                </button>
                 <EtapeDemoucron demarche={demarche} typeChemin={typeChemin} />
             </Container>
         </>
@@ -97,4 +89,4 @@ const EtapeDemoucron = (props) => {
     )
 }
 
-export default DemoncronBox
+export { DemoncronBox, EtapeDemoucron }
