@@ -1,5 +1,6 @@
 import FlowChart from "./FlowChart"
-import Navbar from "./layouts/Navbar"
-import FormData from './layouts/FormData';
+import Tools from "./layouts/Tools"
+import Process from "./layouts/Process"
+import ContextMenu from "./ContextMenu"
 
-export { FlowChart, Navbar, FormData }
+export { FlowChart, Tools, Process, ContextMenu }

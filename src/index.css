@@ -3,113 +3,128 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.matrice{
-  border-collapse: collapse;
+.matrice {
+    border-collapse: collapse;
 }
-.matrice td{
-  border: 2px solid black;
-  padding: 5px 15px;
-  text-align: center;
+.matrice td {
+    border: 2px solid black;
+    padding: 5px 15px;
+    text-align: center;
 }
-.a_changee{
-  color : red;
+.a_changee {
+    color: red;
 }
 
 .tableDynamique {
-  margin: 15px 0;
+    margin: 15px 0;
 }
-.tableDynamique input{
-  width: 80px;
-  height: 45px;
-  size: 20px;
-}
-
-.top_numero{
-  text-align: center;
+.tableDynamique input {
+    width: 80px;
+    height: 45px;
+    size: 20px;
 }
 
-.matriceTopNumero, .matriceTopNumero td{
-  border: none;
+.top_numero {
+    text-align: center;
 }
 
-.matrice .matriceLeftNumero{
-  border: none;
+.matriceTopNumero,
+.matriceTopNumero td {
+    border: none;
 }
 
-.formule, .formule td {
-  padding: 5px 40px;
+.matrice .matriceLeftNumero {
+    border: none;
+}
+
+.formule,
+.formule td {
+    padding: 5px 40px;
 }
 
 .titleMatrice {
-  padding: 0% 30%;
+    padding: 0% 30%;
 }
 
-.titleSolution{
-  text-align: center;
-  padding: 10px 0;
+.titleSolution {
+    text-align: center;
+    padding: 10px 0;
 }
 
 .cytsocapteContainer {
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 5px;
-  margin: 10px 0px;
-  padding: 5px 0px 0px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 5px 0px 0px 5px;
 }
 
-.nombreSommetContainer input{
-  margin: 5px 15px;
+.nombreSommetContainer input {
+    margin: 5px 15px;
 }
 
 .ct-btn-container button {
-  margin: 0px 5px;
-  border: solid 1px;
+    margin: 0px 5px;
+    border: solid 1px;
 }
 
+
+/* //NOTE: Reactflow design */
 .react-flow .react-flow__handle {
-  width: 30px;
-  height: 14px;
-  border-radius: 3px;
-  background-color: #784be8;
+    width: 30px;
+    height: 14px;
+    border-radius: 3px;
+    background-color: #784be8;
 }
 
 .react-flow .react-flow__handle-top {
-  top: -10px;
+    top: -10px;
 }
 
 .react-flow .react-flow__handle-bottom {
-  bottom: -10px;
+    bottom: -10px;
 }
 
 .react-flow .react-flow__node {
-  height: 40px;
-  width: 150px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  border-width: 2px;
-  font-weight: 700;
+    height: 40px;
+    width: 150px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-width: 2px;
+    font-weight: 700;
 }
 
 .react-flow .react-flow__edge path,
 .react-flow__connectionline path {
-  stroke-width: 2;
+    stroke-width: 2;
 }
 
 .wrapper {
-  flex-grow: 1;
-  height: 100%;
+    flex-grow: 1;
+    height: 100%;
+}
+
+/* //NOTE: Scrollbar design */
+.scrollbar::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #d9d9d9;
 }
