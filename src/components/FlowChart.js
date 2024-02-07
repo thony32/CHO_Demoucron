@@ -1,30 +1,21 @@
 import React, { useCallback, useRef, useState } from "react"
-import ReactFlow, { useNodesState, useEdgesState, addEdge, useReactFlow, Controls, Background, MiniMap } from "reactflow"
+import ReactFlow, { addEdge, Controls, Background, MiniMap, applyNodeChanges, applyEdgeChanges } from "reactflow"
 import { ContextMenu } from "."
 import "reactflow/dist/style.css"
-
-const initialNodes = [
-    {
-        id: "1",
-        type: "input",
-        data: { label: "Node" },
-        position: { x: 0, y: 0 },
-    },
-]
-
-let id = 2
-const getId = () => `${id++}`
+import { useRecoilState } from "recoil"
+import { edgesState, nodesState } from "../store"
 
 const FlowChart = () => {
     const reactFlowWrapper = useRef(null)
     const connectingNodeId = useRef(null)
-    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
-    const [edges, setEdges, onEdgesChange] = useEdgesState([])
-    const [rightClickOnNode, setRightClickOnNode] = useState(false)
+    const [nodes, setNodes] = useRecoilState(nodesState)
+    const [edges, setEdges] = useRecoilState(edgesState)
     const [menu, setMenu] = useState(null)
-    const { screenToFlowPosition } = useReactFlow()
+    
     console.log(edges)
     console.log(nodes)
+
+    // NOTE: Function to handle connection between nodes
     const onConnect = useCallback(
         (params) => {
             // reset the start node on connections
@@ -34,35 +25,10 @@ const FlowChart = () => {
         [setEdges]
     )
 
-    const onConnectStart = useCallback((_, { nodeId }) => {
-        connectingNodeId.current = nodeId
-    }, [])
 
-    const onConnectEnd = useCallback(
-        (event) => {
-            if (!connectingNodeId.current) return
-
-            const targetIsPane = event.target.classList.contains("react-flow__pane")
-
-            if (targetIsPane) {
-                // we need to remove the wrapper bounds, in order to get the correct position
-                const id = getId()
-                const newNode = {
-                    id,
-                    position: screenToFlowPosition({
-                        x: event.clientX,
-                        y: event.clientY,
-                    }),
-                    data: { label: `Node ${id}` },
-                    origin: [0.5, 0.0],
-                }
-
-                setNodes((nds) => nds.concat(newNode))
-                setEdges((eds) => eds.concat({ id, source: connectingNodeId.current, target: id }))
-            }
-        },
-        [screenToFlowPosition, setNodes, setEdges]
-    )
+    // NOTE: All ReactFlow Props Functions
+    const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
+    const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), [setEdges])
 
     // NOTE: Handle Node Context Menu event listener
     const showContextMenu = (event) => {
@@ -70,19 +36,14 @@ const FlowChart = () => {
         const targetNode = event.target
         const isNode = targetNode && targetNode.classList.contains("react-flow__node")
         if (isNode) {
-            // Si c'est un clic-droit sur un nœud, préparer l'affichage de ContextMenu spécifiquement pour ce nœud
-            setRightClickOnNode(true)
-            const pane = reactFlowWrapper.current.getBoundingClientRect()
+            // Si c'est un clic-droit sur un nœud, afficher ContextMenu à la position du curseur
             setMenu({
                 id: targetNode.getAttribute("data-id"), // Obtention de l'ID du nœud sur lequel le clic droit a été effectué
-                top: event.clientY,
-                left: event.clientX,
-                right: event.clientX,
-                bottom: event.clientY,
+                top: `${event.clientY}px`, // Assurez-vous que c'est une chaîne
+                left: `${event.clientX - 320}px`,
             })
         } else {
-            // Si ce n'est pas un clic-droit sur un nœud, ne pas afficher ContextMenu
-            setRightClickOnNode(false)
+            // Si le clic droit est hors d'un nœud, ne pas afficher de menu
             setMenu(null)
         }
     }
@@ -92,11 +53,11 @@ const FlowChart = () => {
 
     return (
         <div className="bg-gray-200 col-span-7 w-full h-auto justify-center items-center" ref={reactFlowWrapper} onContextMenu={showContextMenu}>
-            <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onConnectStart={onConnectStart} onConnectEnd={onConnectEnd} onPaneClick={onPaneClick} fitView nodeOrigin={[0, 0]}>
+            <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onPaneClick={onPaneClick} fitView nodeOrigin={[0, 0]}>
                 <Controls />
                 <Background />
                 <MiniMap className="scale-[.80]" nodeColor="#000000" pannable={true} />
-                {menu && rightClickOnNode && <ContextMenu onClick={onPaneClick} {...menu} />}
+                {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
             </ReactFlow>
         </div>
     )

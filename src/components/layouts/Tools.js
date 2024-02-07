@@ -12,7 +12,7 @@ const Tools = () => {
                     </label>
                     <input type="number" id="vertexCount" placeholder="Nombre de sommets" className="px-4 py-2 w-full border rounded-full" />
                 </div>
-                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6">Créer</button>
+                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6">Générer graphe</button>
                 <div className="flex items-center mb-6">
                     <input type="radio" name="path" id="maxPath" className="radio radio-gray-900" />
                     <label htmlFor="maxPath" className="ml-2 text-sm font-semibold">
@@ -32,7 +32,7 @@ const Tools = () => {
                     </label>
                     <input type="number" id="vertexCount" placeholder="Valeur" className="px-4 py-2 w-full border rounded-full" />
                 </div>
-                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 disabled:bg-black/20 duration-300 w-full uppercase">Trouver solution</button>
+                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 disabled:bg-black/20 duration-300 w-full uppercase">Trouver Chemin</button>
             </div>
         </div>
     )
