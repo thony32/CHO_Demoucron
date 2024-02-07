@@ -7,24 +7,15 @@ import { edgesState, nodesState } from "../store"
 
 const FlowChart = () => {
     const reactFlowWrapper = useRef(null)
-    const connectingNodeId = useRef(null)
     const [nodes, setNodes] = useRecoilState(nodesState)
     const [edges, setEdges] = useRecoilState(edgesState)
     const [menu, setMenu] = useState(null)
-    
+
     console.log(edges)
     console.log(nodes)
 
     // NOTE: Function to handle connection between nodes
-    const onConnect = useCallback(
-        (params) => {
-            // reset the start node on connections
-            connectingNodeId.current = null
-            setEdges((eds) => addEdge(params, eds))
-        },
-        [setEdges]
-    )
-
+    const onConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), [setEdges])
 
     // NOTE: All ReactFlow Props Functions
     const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
@@ -51,13 +42,28 @@ const FlowChart = () => {
     // NOTE: Close the context menu if it's open whenever the window is clicked.
     const onPaneClick = useCallback(() => setMenu(null), [setMenu])
 
+    // NOTE Function to handle deletion of nodes
+    const onNodesDelete = (nodeId) => {
+        setNodes((nodes) => nodes.filter((node) => node.id !== nodeId))
+    }
+
+    // NOTE: Delete node
+    const deleteNode = useCallback(
+        (id) => {
+            setNodes((nodes) => nodes.filter((node) => node.id !== id))
+            setEdges((edges) => edges.filter((edge) => edge.source !== id))
+            setMenu(null)
+        },
+        [setNodes, setEdges, setMenu]
+    )
+
     return (
         <div className="bg-gray-200 col-span-7 w-full h-auto justify-center items-center" ref={reactFlowWrapper} onContextMenu={showContextMenu}>
-            <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onPaneClick={onPaneClick} fitView nodeOrigin={[0, 0]}>
+            <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onPaneClick={onPaneClick} onNodesDelete={onNodesDelete} fitView nodeOrigin={[0, 0]}>
                 <Controls />
                 <Background />
                 <MiniMap className="scale-[.80]" nodeColor="#000000" pannable={true} />
-                {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
+                {menu && <ContextMenu onClick={deleteNode} {...menu} />}
             </ReactFlow>
         </div>
     )
