@@ -17,10 +17,10 @@ const CustomEdge = ({ id, data, sourceX, sourceY, targetX, targetY }) => {
 
     return (
         <>
-            <BaseEdge id={id} path={edgePath} />
+            <BaseEdge id={id} path={edgePath} markerEnd="arrowClosed" />
             <EdgeLabelRenderer>
-                <label style={edgeLabelStyle} className="nodrag nopan text-lg text-white bg-gray-700 rounded-full w-12 h-12 p-2">
-                    {data.value}
+                <label style={edgeLabelStyle} className="nodrag nopan font-bold text-lg text-white bg-gray-700 rounded-full w-12 h-12 p-2">
+                    test
                 </label>
             </EdgeLabelRenderer>
         </>

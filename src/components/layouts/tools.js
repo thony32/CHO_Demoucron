@@ -1,7 +1,12 @@
-import React from "react"
+import React, { useState } from "react"
+import { useRecoilState } from "recoil"
+import { vertexCountState } from "../../store"
 // import "../../index.css"
 
-const Tools = () => {
+const Tools = ({ onGenerateGraph, onResetGraph }) => {
+    const [pathType, setPathType] = useState("minPath")
+    const [vertexCount, setVertexCount] = useRecoilState(vertexCountState)
+
     return (
         <div className="col-span-2 flex items-center justify-center">
             <div className="bg-white p-8 h-screen overflow-y-auto scrollbar">
@@ -10,17 +15,24 @@ const Tools = () => {
                     <label htmlFor="vertexCount" className="block font-semibold mb-2">
                         Sommets :
                     </label>
-                    <input type="number" id="vertexCount" placeholder="Nombre de sommets" className="px-4 py-2 w-full border rounded-full" />
+                    <input type="number" id="vertexCount" value={vertexCount} onChange={(e) => setVertexCount(Number(e.target.value))} placeholder="Nombre de sommets" className="px-4 py-2 w-full border rounded-full" />
                 </div>
-                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6 cursor-pointer">Générer graphe</button>
+                <div className="flex gap-4">
+                    <button onClick={() => onGenerateGraph(vertexCount)} className="px-6 py-2 text-xs text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6 cursor-pointer">
+                        Générer graphe
+                    </button>
+                    <button onClick={onResetGraph} className="px-6 py-2 text-xs text-white font-bold rounded-full bg-gray-500/80 hover:bg-gray-500 active:scale-95 duration-300 w-full mb-6 cursor-pointer">
+                        Réinitialiser
+                    </button>
+                </div>
                 <div className="flex items-center mb-6">
-                    <input type="radio" name="path" id="maxPath" className="radio radio-gray-900 cursor-pointer" />
+                    <input type="radio" checked={pathType === "minPath"} name="path" id="maxPath" className="radio radio-gray-900 cursor-pointer" />
                     <label htmlFor="maxPath" className="ml-2 text-sm font-semibold">
                         Chemin Maximum
                     </label>
                 </div>
                 <div className="flex items-center mb-6">
-                    <input type="radio" name="path" id="minPath" className="radio radio-gray-900 cursor-pointer" />
+                    <input type="radio" checked={pathType === "minPath"} name="path" id="minPath" className="radio radio-gray-900 cursor-pointer" />
                     <label htmlFor="minPath" className="ml-2 text-sm font-semibold">
                         Chemin Minimum
                     </label>

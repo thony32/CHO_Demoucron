@@ -1,11 +1,11 @@
 import React, { useCallback, useRef, useState } from "react"
-import ReactFlow, { addEdge, Controls, Background, MiniMap, applyNodeChanges, applyEdgeChanges } from "reactflow"
+import ReactFlow, { Controls, Background, MiniMap, applyNodeChanges, applyEdgeChanges } from "reactflow"
 import { ContextMenu } from "."
 import "reactflow/dist/style.css"
 import { useRecoilState } from "recoil"
 import { edgesState, nodesState } from "../store"
 
-const FlowChart = () => {
+const FlowChart = ({ nodeTypes, edgeTypes, onConnect }) => {
     const ref = useRef(null)
     const [nodes, setNodes] = useRecoilState(nodesState)
     const [edges, setEdges] = useRecoilState(edgesState)
@@ -14,7 +14,6 @@ const FlowChart = () => {
     console.log(edges)
     console.log(nodes)
 
-    const onConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), [setEdges])
     const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
     const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), [setEdges])
 
@@ -55,7 +54,7 @@ const FlowChart = () => {
 
     return (
         <div className="bg-gray-200 col-span-7 w-full h-auto justify-center items-center" ref={ref} onContextMenu={showContextMenu}>
-            <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onPaneClick={onPaneClick} onNodesDelete={onNodesDelete} fitView nodeOrigin={[0, 0]}>
+            <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} nodeTypes={nodeTypes} edgeTypes={edgeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onPaneClick={onPaneClick} onNodesDelete={onNodesDelete} fitView nodeOrigin={[0, 0]}>
                 <Controls />
                 <Background />
                 <MiniMap className="scale-[.80]" nodeColor="#000000" pannable={true} />

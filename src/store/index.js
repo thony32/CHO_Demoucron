@@ -1,4 +1,5 @@
 import { edgesState } from "./edges"
 import { nodesState } from "./nodes"
+import { vertexCountState } from "./vertex"
 
-export { edgesState, nodesState }
+export { edgesState, nodesState, vertexCountState }
