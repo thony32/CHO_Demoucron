@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil"
 import { edgesState, nodesState } from "../store"
 
 const FlowChart = () => {
-    const reactFlowWrapper = useRef(null)
+    const ref = useRef(null)
     const [nodes, setNodes] = useRecoilState(nodesState)
     const [edges, setEdges] = useRecoilState(edgesState)
     const [menu, setMenu] = useState(null)
@@ -14,10 +14,7 @@ const FlowChart = () => {
     console.log(edges)
     console.log(nodes)
 
-    // NOTE: Function to handle connection between nodes
     const onConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), [setEdges])
-
-    // NOTE: All ReactFlow Props Functions
     const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
     const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), [setEdges])
 
@@ -42,12 +39,11 @@ const FlowChart = () => {
     // NOTE: Close the context menu if it's open whenever the window is clicked.
     const onPaneClick = useCallback(() => setMenu(null), [setMenu])
 
-    // NOTE Function to handle deletion of nodes
+    // NOTE: Functions to handle deletion of nodes
     const onNodesDelete = (nodeId) => {
         setNodes((nodes) => nodes.filter((node) => node.id !== nodeId))
     }
 
-    // NOTE: Delete node
     const deleteNode = useCallback(
         (id) => {
             setNodes((nodes) => nodes.filter((node) => node.id !== id))
@@ -58,7 +54,7 @@ const FlowChart = () => {
     )
 
     return (
-        <div className="bg-gray-200 col-span-7 w-full h-auto justify-center items-center" ref={reactFlowWrapper} onContextMenu={showContextMenu}>
+        <div className="bg-gray-200 col-span-7 w-full h-auto justify-center items-center" ref={ref} onContextMenu={showContextMenu}>
             <ReactFlow minZoom={0.5} maxZoom={5} nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onPaneClick={onPaneClick} onNodesDelete={onNodesDelete} fitView nodeOrigin={[0, 0]}>
                 <Controls />
                 <Background />

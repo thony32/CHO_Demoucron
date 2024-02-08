@@ -1,6 +1,6 @@
-import FlowChart from "./FlowChart"
-import Tools from "./layouts/Tools"
-import Process from "./layouts/Process"
-import ContextMenu from "./ContextMenu"
+import FlowChart from "./flow"
+import Tools from "./layouts/tools"
+import Process from "./layouts/process"
+import ContextMenu from "./contextMenu"
 
 export { FlowChart, Tools, Process, ContextMenu }

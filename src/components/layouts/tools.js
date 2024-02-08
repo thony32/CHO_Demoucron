@@ -12,15 +12,15 @@ const Tools = () => {
                     </label>
                     <input type="number" id="vertexCount" placeholder="Nombre de sommets" className="px-4 py-2 w-full border rounded-full" />
                 </div>
-                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6">Générer graphe</button>
+                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6 cursor-pointer">Générer graphe</button>
                 <div className="flex items-center mb-6">
-                    <input type="radio" name="path" id="maxPath" className="radio radio-gray-900" />
+                    <input type="radio" name="path" id="maxPath" className="radio radio-gray-900 cursor-pointer" />
                     <label htmlFor="maxPath" className="ml-2 text-sm font-semibold">
                         Chemin Maximum
                     </label>
                 </div>
                 <div className="flex items-center mb-6">
-                    <input type="radio" name="path" id="minPath" className="radio radio-gray-900" />
+                    <input type="radio" name="path" id="minPath" className="radio radio-gray-900 cursor-pointer" />
                     <label htmlFor="minPath" className="ml-2 text-sm font-semibold">
                         Chemin Minimum
                     </label>
@@ -32,7 +32,7 @@ const Tools = () => {
                     </label>
                     <input type="number" id="vertexCount" placeholder="Valeur" className="px-4 py-2 w-full border rounded-full" />
                 </div>
-                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 disabled:bg-black/20 duration-300 w-full uppercase">Trouver Chemin</button>
+                <button className="px-6 py-2 text-sm text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 disabled:bg-black/20 duration-300 w-full uppercase cursor-pointer">Trouver Chemin</button>
             </div>
         </div>
     )

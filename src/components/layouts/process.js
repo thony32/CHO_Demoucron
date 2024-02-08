@@ -6,8 +6,8 @@ const Process = () => {
             <div className="bg-white px-4 py-8 h-screen overflow-auto scrollbar w-full">
                 <h1 className="text-3xl text-center font-extrabold uppercase mb-6">Démarche</h1>
                 {/* Map values */}
-                <div className="space-y-8">
-                    <h1 className="text-xl font-bold text-primary">Pour k = valeur</h1>
+                <div className="space-y-8 border py-4 px-2 rounded-lg">
+                    <h1 className="text-xl font-bold text-primary italic">Pour k = <span className="text-red-500">valeur</span></h1>
                     <div className="space-y-6">
                         <h1 className="text-xl text-center font-bold bg-gray-200 py-2 rounded-full">
                             Matrice D<sub>1</sub>
@@ -50,7 +50,7 @@ const Process = () => {
                                     <td>+&infin;</td>
                                     <td>1</td>
                                     <td>1</td>
-                                    <td>1</td>
+                                    <td className="text-error">1</td>
                                     <td>1</td>
                                     <td>1</td>
                                     <td>1</td>
