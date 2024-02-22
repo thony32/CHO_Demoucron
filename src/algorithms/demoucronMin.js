@@ -1,64 +1,95 @@
-import { copyMatrix, transposeMatrix } from './utils'
-import { findMinimum } from '.'
+import { copyMatrix, transposeMatrix } from "./utils"
+import { findMinimum } from "."
 
-async function demoucronMin(matrice1) {
-    let demarche = []
-    let matrice = await copyMatrix(matrice1)
-    let matriceInitialeTransposed = transposeMatrix(matrice1)
-    // console.log(matrice);
-    const tailleMatrice = matrice.length
+async function demoucronMin(matrix1) {
+    let steps = []
+    let matrix = await copyMatrix(matrix1)
+    let transposedInitialMatrix = transposeMatrix(matrix1)
+    // console.log(matrix);
+    const matrixSize = matrix.length
     let w = []
-    let entree = []
-    let sortie = []
-    let lastMatrice = []
-    let currentMatrice = []
-    let a_changee = []
-    for (var k = 1; k < tailleMatrice - 1; k++) {
-        entree = []
-        sortie = []
+    let input = []
+    let output = []
+    let lastMatrix = []
+    let currentMatrix = []
+    let hasChanged = []
+    for (var k = 1; k < matrixSize - 1; k++) {
+        input = []
+        output = []
         w = []
-        a_changee = []
-        lastMatrice = await copyMatrix(matrice)
+        hasChanged = []
+        lastMatrix = await copyMatrix(matrix)
 
-        for (var i = 0; i < tailleMatrice; i++) {
-            if (matrice[i][k] !== Infinity) {
-                entree.push(i)
-            }
-            if (i == k) {
-                for (var j = 0; j < tailleMatrice; j++) {
-                    if (matrice[i][j] !== Infinity) {
-                        sortie.push(j)
+        const processStep = async (matrix, k) => {
+            const matrixSize = matrix.length
+            const input = []
+            const output = []
+            const w = []
+            const hasChanged = []
+
+            for (let i = 0; i < matrixSize; i++) {
+                if (matrix[i][k] !== Infinity) {
+                    input.push(i)
+                }
+                if (i === k) {
+                    for (let j = 0; j < matrixSize; j++) {
+                        if (matrix[i][j] !== Infinity) {
+                            output.push(j)
+                        }
                     }
                 }
             }
-        }
-        entree.map((i) => {
-            w[i] = []
-            sortie.map((j) => {
-                w[i][j] = matrice[i][k] + matrice[k][j]
-                matrice[i][j] = w[i][j] <= matrice[i][j] ? w[i][j] : matrice[i][j]
-                a_changee.push([i, j])
+
+            input.forEach((source) => {
+                w[source] = []
+                output.forEach((target) => {
+                    w[source][target] = matrix[source][k] + matrix[k][target]
+                    matrix[source][target] = w[source][target] <= matrix[source][target] ? w[source][target] : matrix[source][target]
+                    hasChanged.push([source, target])
+                })
             })
-        })
-        currentMatrice = await copyMatrix(matrice)
-        demarche.push({
+
+            const currentMatrix = await copyMatrix(matrix)
+
+            return {
+                input,
+                output,
+                w,
+                hasChanged,
+                currentMatrix,
+            }
+        }
+
+        for (let k = 1; k < matrixSize - 1; k++) {
+            const { input, output, w, hasChanged, currentMatrix } = await processStep(matrix, k)
+            steps.push({
+                k,
+                lastMatrix: await copyMatrix(matrix),
+                currentMatrix,
+                hasChanged,
+                input,
+                output,
+                w,
+            })
+        }
+        steps.push({
             k: k,
-            lastMatrice: lastMatrice,
-            currentMatrice: currentMatrice,
-            a_changee: a_changee,
-            entree: entree,
-            sortie: sortie,
+            lastMatrix: lastMatrix,
+            currentMatrix: currentMatrix,
+            hasChanged: hasChanged,
+            input: input,
+            output: output,
             w: w,
         })
     }
-    let cheminMin = undefined
-    if (Number.isFinite(matrice[0][tailleMatrice - 1])) {
-        let matriceMinTransposed = transposeMatrix(matrice)
-        cheminMin = findMinimum(matriceInitialeTransposed, matriceMinTransposed)
+    let minPath = undefined
+    if (Number.isFinite(matrix[0][matrixSize - 1])) {
+        let minTransposedMatrix = transposeMatrix(matrix)
+        minPath = findMinimum(transposedInitialMatrix, minTransposedMatrix)
     }
     return {
-        cheminMin: cheminMin,
-        demarche: demarche,
+        minPath: minPath,
+        steps: steps,
     }
 }
 

@@ -1,31 +1,29 @@
-function findMaximum(matriceInitialeTransposed, matriceMaxTransposed) {
-    let tailleMatrice = matriceInitialeTransposed.length
-    let index = matriceMaxTransposed.length - 1
-    let trouve = false
-    //trouveRow: pour verifier si on trouve le sommet precedente
-    let trouveRow = false
-    let cheminMax = []
-    //compteur pour eviter la boucle infini
-    let compteur = tailleMatrice
+const findMaximum = (initialMatrix, maxMatrix) => {
+    let matrixSize = initialMatrix.length
+    let currentIndex = maxMatrix.length - 1
+    let found = false
+    let foundRow = false
+    let maxPath = []
+    let counter = matrixSize
 
-    while (!trouve && compteur >= 0) {
-        trouveRow = false
-        cheminMax.push(index)
-        if (matriceInitialeTransposed[index][0] == matriceMaxTransposed[index][0]) {
-            cheminMax.push(0)
-            trouve = true
+    while (!found && counter >= 0) {
+        foundRow = false
+        maxPath.push(currentIndex)
+        if (initialMatrix[currentIndex][0] === maxMatrix[currentIndex][0]) {
+            maxPath.push(0)
+            found = true
         }
-        for (var i = 0; i < tailleMatrice && !trouveRow; i++) {
-            if (matriceInitialeTransposed[index][i] != Number.NEGATIVE_INFINITY) {
-                if (matriceMaxTransposed[index][0] == matriceInitialeTransposed[index][i] + matriceMaxTransposed[i][0]) {
-                    index = i
-                    trouveRow = true
+        for (let i = 0; i < matrixSize && !foundRow; i++) {
+            if (initialMatrix[currentIndex][i] !== Number.NEGATIVE_INFINITY) {
+                if (maxMatrix[currentIndex][0] === initialMatrix[currentIndex][i] + maxMatrix[i][0]) {
+                    currentIndex = i
+                    foundRow = true
                 }
             }
         }
-        compteur--
+        counter--
     }
-    return cheminMax
+    return maxPath
 }
 
 export default findMaximum

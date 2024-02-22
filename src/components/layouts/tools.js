@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useRecoilState } from "recoil"
 import { vertexCountState } from "../../store"
+import { RxReset } from "react-icons/rx"
 // import "../../index.css"
 
 const Tools = ({ onGenerateGraph, onResetGraph }) => {
@@ -21,8 +22,8 @@ const Tools = ({ onGenerateGraph, onResetGraph }) => {
                     <button onClick={() => onGenerateGraph(vertexCount)} className="px-6 py-2 text-xs text-white font-bold rounded-full bg-black/80 hover:bg-black active:scale-95 duration-300 w-full uppercase mb-6 cursor-pointer">
                         Générer graphe
                     </button>
-                    <button onClick={onResetGraph} className="px-6 py-2 text-xs text-white font-bold rounded-full bg-gray-500/80 hover:bg-gray-500 active:scale-95 duration-300 w-full mb-6 cursor-pointer">
-                        Réinitialiser
+                    <button onClick={onResetGraph} className="px-6 py-2 text-xs text-white font-bold rounded-full bg-gray-500/80 hover:bg-gray-500 active:scale-95 duration-300 mb-6 cursor-pointer">
+                        <RxReset />
                     </button>
                 </div>
                 <div className="flex items-center mb-6">

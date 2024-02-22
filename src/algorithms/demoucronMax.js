@@ -1,67 +1,64 @@
 import { copyMatrix, transposeMatrix } from "./utils"
 import { findMaximum } from "."
 
-async function demoucronMax(matrice1) {
-    //pour enregistrer chaque demarche de demoucron
-    let demarche = []
+async function demoucronMax(matrix) {
+    let steps = []
+    let copyOfMatrix = await copyMatrix(matrix)
+    let transposedMatrix = transposeMatrix(matrix)
+    const matrixSize = matrix.length
+    let lastMatrix = []
+    let currentMatrix = []
 
-    let matrice = await copyMatrix(matrice1)
-    let matriceInitialeTransposed = transposeMatrix(matrice1)
-    const tailleMatrice = matrice.length
-    let w = []
-    let entree = []
-    let sortie = []
-    let lastMatrice = []
-    let currentMatrice = []
-    let a_changee = []
+    for (let k = 1; k < matrixSize - 1; k++) {
+        let inputNodes = []
+        let outputNodes = []
+        let changedNodes = []
 
-    for (var k = 1; k < tailleMatrice - 1; k++) {
-        entree = []
-        sortie = []
-        w = []
-        //pour enregistrer les cellules qui ont ete changee - utilisation css
-        a_changee = []
-        lastMatrice = await copyMatrix(matrice)
-        //detection des entrees et sortie
-        for (var i = 0; i < tailleMatrice; i++) {
-            if (matrice[i][k] !== Number.NEGATIVE_INFINITY) {
-                entree.push(i)
+        lastMatrix = await copyMatrix(copyOfMatrix)
+
+        for (let i = 0; i < matrixSize; i++) {
+            if (copyOfMatrix[i][k] !== Number.NEGATIVE_INFINITY) {
+                inputNodes.push(i)
             }
-            if (i == k) {
-                for (var j = 0; j < tailleMatrice; j++) {
-                    if (matrice[i][j] !== Number.NEGATIVE_INFINITY) {
-                        sortie.push(j)
+            if (i === k) {
+                for (let j = 0; j < matrixSize; j++) {
+                    if (copyOfMatrix[i][j] !== Number.NEGATIVE_INFINITY) {
+                        outputNodes.push(j)
                     }
                 }
             }
         }
-        entree.map((i) => {
-            w[i] = []
-            sortie.map((j) => {
-                w[i][j] = matrice[i][k] + matrice[k][j]
-                matrice[i][j] = w[i][j] >= matrice[i][j] ? w[i][j] : matrice[i][j]
-                a_changee.push([i, j])
+
+        inputNodes.forEach((i) => {
+            let w = []
+            return outputNodes.map((j) => {
+                w[j] = copyOfMatrix[i][k] + copyOfMatrix[k][j]
+                copyOfMatrix[i][j] = w[j] >= copyOfMatrix[i][j] ? w[j] : copyOfMatrix[i][j]
+                changedNodes.push([i, j])
+                return null // Add a return value to satisfy Array.prototype.map()
             })
         })
-        currentMatrice = await copyMatrix(matrice)
-        demarche.push({
+
+        currentMatrix = await copyMatrix(copyOfMatrix)
+
+        steps.push({
             k: k,
-            lastMatrice: lastMatrice,
-            currentMatrice: currentMatrice,
-            a_changee: a_changee,
-            entree: entree,
-            sortie: sortie,
-            w: w,
+            lastMatrix: lastMatrix,
+            currentMatrix: currentMatrix,
+            changedNodes: changedNodes,
+            inputNodes: inputNodes,
+            outputNodes: outputNodes,
         })
     }
-    let cheminMax = undefined
-    if (Number.isFinite(matrice[0][tailleMatrice - 1])) {
-        let matriceMaxTransposed = transposeMatrix(matrice)
-        cheminMax = findMaximum(matriceInitialeTransposed, matriceMaxTransposed)
+    let maxPath = undefined
+    if (Number.isFinite(copyOfMatrix[0][matrixSize - 1])) {
+        let maxTransposedMatrix = transposeMatrix(copyOfMatrix)
+        maxPath = findMaximum(transposedMatrix, maxTransposedMatrix)
     }
     return {
-        demarche: demarche,
-        cheminMax: cheminMax,
+        steps: steps,
+        maxPath: maxPath,
     }
 }
+
 export default demoucronMax

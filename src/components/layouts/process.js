@@ -85,7 +85,7 @@ const Process = () => {
                                     <th className="text-lg">2</th>
                                     <td>1</td>
                                     <td>1</td>
-                                    <td>+&infin;</td>
+                                    <td>-&infin;</td>
                                     <td>1</td>
                                     <td>1</td>
                                     <td>1</td>
