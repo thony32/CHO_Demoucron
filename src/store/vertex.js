@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from "recoil"
 
 export const vertexCountState = atom({
-    key: 'vertexCountState',
-    default: 2, 
-});
+    key: "vertexCountState",
+    default: 2,
+})
