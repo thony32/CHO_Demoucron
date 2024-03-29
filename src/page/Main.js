@@ -6,11 +6,6 @@ import { useRecoilState } from "recoil"
 import { nodesState, edgesState, vertexCountState } from "../store"
 import { useCallback } from "react"
 import { addEdge, Position } from "reactflow"
-import { CustomEdge } from "../utils"
-
-const edgeTypes = {
-    custom: CustomEdge,
-}
 
 const Main = () => {
     const isDesktop = useMediaQuery({ query: "(min-width: 1900px)" })
@@ -53,7 +48,7 @@ const Main = () => {
             <>
                 <div className="grid grid-cols-12 h-screen overflow-y-hidden">
                     <Tools onGenerateGraph={generateGraph} onResetGraph={resetGraph} />
-                    <FlowChart edgeTypes={edgeTypes} onConnect={onConnect} />
+                    <FlowChart onConnect={onConnect} />
                     <Process />
                 </div>
             </>
