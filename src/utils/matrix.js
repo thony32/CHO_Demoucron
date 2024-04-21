@@ -1,41 +1,79 @@
-/**
- * Transposes a given matrix.
- * @param {number[][]} matrix - The input matrix.
- * @returns {number[][]} The transposed matrix.
- */
 
-export const transposeMatrix = (matrix) => {
-    const matrixSize = matrix.length
-    const transposedMatrix = matrix[0].map(() => new Array(matrixSize).fill(0))
 
-    for (let row = 0; row < matrixSize; row++) {
-        for (let col = 0; col < matrixSize; col++) {
-            transposedMatrix[col][row] = matrix[row][col]
-        }
-    }
+export function extractMatrix(n, type) {
+	if (typeof n !== "number" || n <= 0) {
+		return [];
+	}
 
-    return transposedMatrix
+	return Array.from({ length: n }, () =>
+		Array.from({ length: n }, () => (type === "maximal" ? 0 : +Infinity))
+	);
 }
 
-/**
- * Creates a square matrix of a given size and initializes it with a default value.
- * @param {number} size - The size of the matrix.
- * @param {number} defaultValue - The default value to initialize the matrix with.
- * @returns {number[][]} The created matrix.
- */
+export function extractNodesJoined(nodes, edges) {
+	const nodesJoined = nodes.filter((node) => {
+		return edges.some(
+			(edge) => edge.source === node.id || edge.target === node.id
+		);
+	});
 
-export const createMatrix = (size, defaultValue) => {
-    const matrix = new Array(size).fill(0).map(() => new Array(size).fill(defaultValue))
-    return matrix
+	const nodeOutput = edges.find(
+		(edge) => !edges.some((e) => e.source === edge.target)
+	)?.target;
+
+	if (nodeOutput) {
+		const index = nodesJoined.findIndex((node) => node.id === nodeOutput);
+		if (index !== -1) {
+			const removedNode = nodesJoined.splice(index, 1)[0];
+			nodesJoined.push(removedNode);
+		}
+	}
+
+	return nodesJoined;
 }
 
-/**
- * Creates a deep copy of a given matrix.
- * @param {number[][]} matrix - The input matrix to be copied.
- * @returns {number[][]} A deep copy of the input matrix.
- */
+export function verifyEdgeLabel(edges) {
+	return edges.every((edge) => edge.data?.label) && edges.length > 0;
+}
 
-export const copyMatrix = async (matrix) => {
-    const copiedMatrix = matrix.map((row) => [...row])
-    return copiedMatrix
+export function verifyNodesOutput(edges) {
+	const uniqueTargets = edges
+		.map((edge) => edge.target)
+		.filter((target, index, array) => array.indexOf(target) === index);
+
+	const uniqueTargetsNotInSources = uniqueTargets.filter(
+		(target) => !edges.some((edge) => edge.source === target)
+	);
+
+	return uniqueTargetsNotInSources;
+}
+
+export function transposeMatrix(matrix) {
+	const transposedMat = [];
+	for (let i = 0; i < matrix.length; i++) {
+		transposedMat[i] = new Array(matrix.length);
+	}
+	matrix.forEach((row, i) => {
+		row.forEach((cell, j) => {
+			transposedMat[j][i] = cell;
+		});
+	});
+	return transposedMat;
+}
+
+export function getPathNodes(indexes, nodes) {
+	return nodes.filter((_node, index) => indexes.includes(index));
+}
+
+export function getPathEdges(indexes, nodes, edges) {
+	const pathEdges = [];
+
+	for (let i = 1; i < indexes.length; i++) {
+		const edgeId = `reactflow__edge-${nodes[indexes[i]].id}-${nodes[indexes[i - 1]].id}`;
+		const foundedEdge = edges.find((edge) => edge.id === edgeId);
+
+		foundedEdge && pathEdges.unshift(foundedEdge);
+	}
+
+	return pathEdges;
 }
