@@ -24,7 +24,7 @@ function App() {
         return (
             <div className="h-screen flex justify-center items-center">
                 <h1 className="text-2xl text-center text-red-400">
-                    App not supported on mobile and tablet screen <span className="text-red-600 font-extrabold">(min-width: 1900px)</span>{" "}
+                    App not supported on mobile and tablet screen <span className="text-red-600 font-extrabold">(min-width: 1366px)</span>{" "}
                 </h1>
             </div>
         )
