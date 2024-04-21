@@ -96,7 +96,7 @@ const ProcessMax = () => {
                             className="w-full my-5 border p-3 rounded-lg">
                             <h2 className="font-bold text-lg mb-5">
                                 {index + 1 !== 1 ? (
-                                    `pour k = ${index + 1}`
+                                    <span className="text-primary italic">Pour k = {index + 1}</span>
                                 ) : (
                                     <>
                                         Matrice D<sub>{index + 1}</sub>
