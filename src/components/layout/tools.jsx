@@ -59,7 +59,7 @@ const Tools = () => {
                 id: `${i}`,
                 type: nodeType,
                 position: { x: Math.random() * 100, y: Math.random() * 200 },
-                data: { label: `S${i}` },
+                data: { label: `${i}` },
                 style: { borderRadius: 100, width: 50, height: 50, border: 1, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: "bold" },
                 sourcePosition: Position.Right,
                 targetPosition: Position.Left,

@@ -118,7 +118,7 @@ const ProcessMin = () => {
                                                 console.log("Current Index:", String(index))
                                                 return explanation
                                             })
-                                            .filter((explanation) => explanation.mid === `S${index + 1}`)
+                                            .filter((explanation) => explanation.mid === `${index + 1}`)
                                             .map((explanation, i) => (
                                                 <p
                                                     key={i}

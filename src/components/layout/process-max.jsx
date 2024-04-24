@@ -14,7 +14,7 @@ const ProcessMax = () => {
     const [explanations, setExplanations] = useState([])
     const [titles, setTitles] = useState([])
     const [calculable, setCalculable] = useState(false)
-
+    console.log(nodes)
     const handleCalculate = useCallback(() => {
         setMatrixN([])
         setExplanations([])
@@ -113,7 +113,7 @@ const ProcessMax = () => {
                                 {index > 0 && (
                                     <div>
                                         {explanations
-                                            .filter((explanation) => explanation.mid === `S${index + 1}`)
+                                            .filter((explanation) => explanation.mid === `${index + 1}`)
                                             .map((explanation, i) => (
                                                 <p
                                                     key={i}

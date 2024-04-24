@@ -9,23 +9,23 @@ const Table = ({ data, oldData, titles, k }) => {
                     <h1 className={`${k === 1 ? 'hidden' : ''} text-xl text-center font-bold bg-gray-200 py-2 rounded-full`}>
                         Matrice D<sub>{k}</sub>
                     </h1>
-                    <table className="table table-zebra">
+                    <table className="">
                         <thead>
                             <tr>
                                 <th></th>
                                 {titles.map((header, index) => (
-                                    <th key={index} className="text-center text-lg">{header}</th>
+                                    <th key={index} className="text-center text-lg px-4 py-2">{header}</th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
                             {data.map((row, index) => (
                                 <tr key={index}>
-                                    <th className="p-1 text-center text-lg">{titles[index]}</th>
+                                    <th className="px-4 py-2 text-center text-lg">{titles[index]}</th>
                                     {row.map((cell, colIndex) => (
                                         <td
                                             key={colIndex}
-                                            className={cn("text-center px-3 font-semibold", oldData && cell != oldData[index][colIndex] && "text-blue-500")}>
+                                            className={cn("text-center border px-3 font-semibold", oldData && cell != oldData[index][colIndex] && "text-blue-500")}>
                                             {cell === Infinity ? "+∞" : cell}
                                         </td>
                                     ))}
