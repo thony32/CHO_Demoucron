@@ -247,6 +247,7 @@ const Tools = () => {
                                 value={value[edge.id] || ""}
                                 onChange={(e) => handleChange(edge.id, e.target.value)}
                                 className="px-4 py-2 w-full border rounded-full"
+                                min="1"
                             />
                         </div>
                     ))}
