@@ -1,5 +1,5 @@
 import "reactflow/dist/style.css"
-import ReactFlow, { MiniMap, MarkerType } from "reactflow"
+import ReactFlow, { MiniMap, MarkerType, Background, BackgroundVariant } from "reactflow"
 import useStore from "../store/flow-store"
 import CustomEdge from './custom-edge';
 
@@ -23,7 +23,7 @@ const FlowChart = () => {
 	};
 
     return (
-        <div className="bg-gray-200 col-span-6 2xl:col-span-7 w-full h-auto justify-center items-center">
+        <div className="col-span-6 2xl:col-span-7 w-full h-auto justify-center items-center">
             <ReactFlow
                 minZoom={1}
                 maxZoom={2}
@@ -38,7 +38,8 @@ const FlowChart = () => {
                 nodeOrigin={[0, 0]}
                 defaultEdgeOptions={defaultEdgeOptions}
             >
-                <MiniMap className="scale-[.80]" nodeColor="#000000" pannable={true} />
+                <Background variant={BackgroundVariant.Lines} />
+                <MiniMap className="scale-[.80]" nodeColor="yellow" pannable={true} />
             </ReactFlow>
         </div>
     )

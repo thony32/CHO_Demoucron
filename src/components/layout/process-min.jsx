@@ -78,9 +78,9 @@ const ProcessMin = () => {
     }, [nodes, edges])
 
     return (
-        <div className="flex flex-col items-center col-span-3 p-6 overflow-auto scrollbar">
+        <div className="flex flex-col items-center col-span-3 p-6 overflow-auto scrollbar bg-gray-200">
             <div className="w-full space-y-4">
-                <h1 className="text-3xl font-extrabold uppercase text-center">Démonstration Min</h1>
+                <h1 className="text-2xl font-extrabold uppercase text-center">Démonstration Minimum</h1>
                 <button
                     disabled={!calculable}
                     onClick={handleCalculate}
@@ -118,7 +118,7 @@ const ProcessMin = () => {
                                                 console.log("Current Index:", String(index))
                                                 return explanation
                                             })
-                                            .filter((explanation) => explanation.mid === `${index + 1}`)
+                                            .filter((explanation) => explanation.mid === `S${index + 1}`)
                                             .map((explanation, i) => (
                                                 <p
                                                     key={i}

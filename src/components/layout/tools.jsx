@@ -59,8 +59,8 @@ const Tools = () => {
                 id: `${i}`,
                 type: nodeType,
                 position: { x: Math.random() * 100, y: Math.random() * 200 },
-                data: { label: `${i}` },
-                style: { borderRadius: 100, width: 50, height: 50, border: 1, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: "bold" },
+                data: { label: `S${i}` },
+                style: { borderRadius: 100, width: 50, height: 50, border: 1, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: "bold", backgroundColor: "gray" },
                 sourcePosition: Position.Right,
                 targetPosition: Position.Left,
             })
@@ -70,8 +70,8 @@ const Tools = () => {
     }
 
     return (
-        <div className="col-span-3 2xl:col-span-2 flex items-center justify-center">
-            <div className="bg-white p-8 h-screen overflow-y-auto scrollbar space-y-4">
+        <div className=" col-span-3 2xl:col-span-2 flex items-center justify-center">
+            <div className="bg-gray-200 p-8 h-screen overflow-y-auto scrollbar space-y-4">
                 <div className="mb-6 flex justify-between items-center">
                     <h1 className="text-3xl font-extrabold uppercase ">Propriétés Graphe</h1>
                     <button

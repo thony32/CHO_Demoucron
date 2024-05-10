@@ -78,9 +78,9 @@ const ProcessMax = () => {
     }, [nodes, edges])
 
     return (
-        <div className="flex flex-col items-center col-span-3 px-8 overflow-auto scrollbar">
+        <div className="flex flex-col items-center col-span-3 px-8 overflow-auto scrollbar bg-gray-200">
             <div className="w-full space-y-4">
-                <h1 className="text-3xl font-extrabold uppercase mt-6 text-center">Démonstration Max</h1>
+                <h1 className="text-2xl font-extrabold uppercase mt-6 text-center">Démonstration Maximum</h1>
                 <button
                     disabled={!calculable}
                     onClick={handleCalculate}
@@ -113,7 +113,7 @@ const ProcessMax = () => {
                                 {index > 0 && (
                                     <div>
                                         {explanations
-                                            .filter((explanation) => explanation.mid === `${index + 1}`)
+                                            .filter((explanation) => explanation.mid === `S${index + 1}`)
                                             .map((explanation, i) => (
                                                 <p
                                                     key={i}

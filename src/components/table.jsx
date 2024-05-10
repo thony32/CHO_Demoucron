@@ -25,7 +25,7 @@ const Table = ({ data, oldData, titles, k }) => {
                                     {row.map((cell, colIndex) => (
                                         <td
                                             key={colIndex}
-                                            className={cn("text-center border px-3 font-semibold", oldData && cell != oldData[index][colIndex] && "text-blue-500")}>
+                                            className={cn("text-center border border-black px-3 font-semibold", oldData && cell != oldData[index][colIndex] && "text-blue-500")}>
                                             {cell === Infinity ? "+∞" : cell}
                                         </td>
                                     ))}
